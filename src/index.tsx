@@ -6,13 +6,21 @@ import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import "../src/css/index.css";
 
+import CssBaseLine from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
+
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <CssBaseLine>
+          <App />
+        </CssBaseLine>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );
