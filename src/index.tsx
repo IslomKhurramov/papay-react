@@ -8,7 +8,7 @@ import "../src/css/index.css";
 
 import CssBaseLine from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme";
+import theme from "./app/MaterialTheme";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
