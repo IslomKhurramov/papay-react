@@ -1,5 +1,6 @@
-import React from "react";
-import "../css//App.css";
+import React, { useState } from "react";
+import "../css/App.css";
+import "../css/navbar.css";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { RestaurantPage } from "./screens/RestaurantPage";
@@ -9,12 +10,24 @@ import { MemberPage } from "./screens/MemberPage";
 import { HelpPage } from "./screens/HelpPage";
 import { Login } from "./screens/Login";
 import { Homepage } from "./screens/Homepage";
+import { NavbarHome } from "./components/header";
+import { NavbarRestaurant } from "./components/header/restaurant";
+import { NavbarOthers } from "./components/header/others";
 
 function App() {
+  const [path, setPath] = useState();
+  const main_path = window.location.pathname;
   return (
     <Router>
-      <div>
-        <nav>
+      {main_path == "/" ? (
+        <NavbarHome setPath={setPath} />
+      ) : main_path.includes("/restaurant") ? (
+        <NavbarRestaurant setPath={setPath} />
+      ) : (
+        <NavbarOthers setPath={setPath} />
+      )}
+
+      {/* <nav>
           <ul>
             <li>
               <Link to="/restaurant">RestaurantPage</Link>
@@ -38,32 +51,31 @@ function App() {
               <Link to="/">Homepage</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
 
-        <Switch>
-          <Route path="/restaurant">
-            <RestaurantPage />
-          </Route>
-          <Route path="/community">
-            <CommunityPage />
-          </Route>
-          <Route path="/orders">
-            <OrdersPage />
-          </Route>
-          <Route path="/member-page">
-            <MemberPage />
-          </Route>
-          <Route path="/help">
-            <HelpPage />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/">
-            <Homepage />
-          </Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/restaurant">
+          <RestaurantPage />
+        </Route>
+        <Route path="/community">
+          <CommunityPage />
+        </Route>
+        <Route path="/orders">
+          <OrdersPage />
+        </Route>
+        <Route path="/member-page">
+          <MemberPage />
+        </Route>
+        <Route path="/help">
+          <HelpPage />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/">
+          <Homepage />
+        </Route>
+      </Switch>
     </Router>
   );
 }

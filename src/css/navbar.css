@@ -1,0 +1,102 @@
+.format.home_navbar {
+  width: 100%;
+
+  height: 773px;
+  display: flex;
+  background: url("/public/restaurant/homeHeader.png");
+  background-size: cover;
+}
+
+.format_restaurant.home_navbar {
+  width: 100%;
+
+  height: 400px;
+  display: flex;
+  background: url("/public/restaurant/header2.svg");
+  background-size: cover;
+}
+.format_others.home_navbar {
+  width: 100%;
+
+  height: 400px;
+  display: flex;
+  background: url("/public/others/others.svg");
+  background-size: cover;
+}
+
+.home_navbar .navbar_config {
+  width: 1244.69px;
+  height: 46px;
+  margin-left: 26px;
+  margin-top: 55px;
+}
+.home_navbar .navbar_links {
+  width: 752px;
+  height: 46px;
+}
+.home_navbar a {
+  text-decoration: none;
+}
+.home_navbar .hover-line a {
+  color: #ffffff;
+}
+.home_navbar .underline {
+  display: block;
+  content: "";
+  border-bottom: solid 2px #d7b686;
+}
+.home_navbar .hover-line::after {
+  display: block;
+  content: "";
+  border-bottom: solid 2px #d78686;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+}
+.home_navbar .hover-line:hover:after {
+  transform: scaleX(1);
+}
+
+.home_navbar .head_information {
+  display: flex;
+  flex-direction: row;
+  width: 1290px;
+  height: 477px;
+}
+
+.home_navbar .define_restaurant {
+  position: relative;
+  width: 484px;
+  height: 143px;
+  flex-direction: column;
+  margin-top: 40px;
+
+  color: #fff;
+  font-size: 50px;
+  font-family: "Poppins";
+  font-weight: 600;
+  line-height: 75px;
+  font-style: normal;
+}
+.home_navbar .timeline_service {
+  position: relative;
+  width: 466px;
+  height: 28px;
+  margin-top: 30px;
+  color: #d5d5d5;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 30px;
+  font-family: "Poppins";
+}
+.home_navbar .big_img {
+  position: relative;
+  width: 277px;
+  height: 277px;
+  margin-top: 41px;
+  margin-left: 494px;
+  background: url("/public/home/halal.svg");
+  border-radius: 90px 0 0 0;
+  filter: invert(46%) blur(1px);
+  background-size: cover;
+}
