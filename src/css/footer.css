@@ -1,0 +1,136 @@
+.footer_config {
+  width: 100%;
+  height: 509px;
+  flex-shrink: 0;
+  background: #2c261e;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.footer_config .liner {
+  position: relative;
+  width: 1064px;
+  height: 0px;
+  margin-top: 86px;
+  opacity: 0.2;
+  border: 1px solid #c5c8c9;
+}
+.footer_config .main_footer_container {
+  width: 1144px;
+  height: 377;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 91px;
+  margin-left: 131px;
+}
+.footer_config .copyright {
+  position: relative;
+  width: 344px;
+  height: 32px;
+  margin-top: 15px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 34px;
+
+  color: #e3c08d;
+}
+.footer_config .info {
+  position: relative;
+  width: 340px;
+  height: 206px;
+}
+.Lorem {
+  position: relative;
+  width: 340px;
+  height: 97.225px;
+  color: #e3c08d;
+  font-size: 16px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px;
+}
+.footer_config .contact_links {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 125px;
+  height: 15px;
+  margin-top: 11px;
+}
+.main_footer_container .info2 {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 15.14px;
+  width: 125.28px;
+  margin-left: 283px;
+}
+.info2 .bulimlar {
+  color: #c5c8c9;
+  font-size: 24px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 34px;
+}
+.info2 .line2 {
+  width: 45.405px;
+  height: 1.906px;
+  flex-shrink: 0;
+  background: #e3c08d;
+  margin-top: 11.44px;
+}
+.info2 .bosh_sahifa {
+  color: #e3c08d;
+  font-size: 16px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px;
+  margin-top: 19px;
+}
+.main_footer_container .info3 {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 210px;
+  width: 297px;
+  margin-left: 105px;
+}
+.info3 .top {
+  color: #c5c8c9;
+  font-size: 24px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 34px;
+}
+.info3 .line {
+  width: 45.405px;
+  height: 1.906px;
+  flex-shrink: 0;
+  background: #e3c08d;
+  margin-top: 11.44px;
+}
+.info3 .first_line {
+  color: #c5c8c9;
+  font-size: 18px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 34px;
+}
+.info3 .second_line {
+  color: #e3c08d;
+  font-size: 16px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 34px;
+  margin-left: 11px;
+}
