@@ -60,6 +60,3 @@ function App() {
 }
 
 export default App;
-function Home() {
-  return <h2>Home</h2>;
-}
