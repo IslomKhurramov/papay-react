@@ -44,3 +44,17 @@
   font-weight: 500;
   line-height: normal;
 }
+.top_restaurant_frame {
+  height: 605px;
+  width: 100%;
+  display: flex;
+  background: #0b0e11;
+}
+.top_restaurant_frame .category_title {
+  color: #e3c08d;
+  font-size: 36px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
