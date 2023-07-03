@@ -68,8 +68,11 @@
 .homepage .category_title {
   font-family: "Roboto";
   font-style: normal;
-  font-weight: 700;
+  font-weight: 775;
   font-size: 36px;
   line-height: 42px;
   color: #e3c08d;
+}
+.homepage {
+  background: #0b0e11;
 }
