@@ -4,6 +4,7 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { ChosenDish } from "./chosenDish";
 import { OneRestaurant } from "./oneRestaurant";
 import { AllRestaurants } from "./allRestaurants";
+import "../../../css/restaurant.css";
 
 export function RestaurantPage() {
   let restaurant = useRouteMatch();
