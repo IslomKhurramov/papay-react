@@ -770,3 +770,98 @@
   top: 26%;
   right: 15%;
 }
+
+/***********chosen dish *****************/
+.chosen_dish_page .swiper_container {
+  width: 611px;
+  height: 453px;
+}
+
+.chosen_dish_page .dish_container {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chosen_dish_page .mySwiper2 {
+  height: 80%;
+  width: 100%;
+}
+
+.chosen_dish_page .dish_swiper_2 {
+  width: auto;
+  height: auto;
+  box-sizing: border-box;
+  padding: 18px 0;
+  padding-left: 15px;
+}
+
+.chosen_dish_page .dish_swiper_2 .dish_img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.chosen_dish_page .right_container {
+  width: 623px;
+  height: 452px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+.chosen_dish_page .title {
+  color: #000;
+  font-family: "Poppins";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.chosen_dish_page .title_info {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 15px;
+  color: #979797;
+}
+.chosen_dish_page .evaluation_box {
+  display: flex;
+}
+.chosen_dish_page .dish_desc_info {
+  color: #000;
+  font-family: "Poppins";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  height: 112px;
+  width: 543px;
+  line-height: normal;
+}
+.chosen_dish_page .dish_price_box {
+  margin-top: 20.32px;
+  margin-bottom: 20.87px;
+  color: #000;
+  font-family: "Poppins";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.chosen_dish_page .button_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
