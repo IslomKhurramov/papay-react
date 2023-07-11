@@ -1,6 +1,123 @@
-import { Container } from "@mui/system";
-import React from "react";
+import { Container, Stack, Box } from "@mui/system";
+import React, { useState } from "react";
+import "../../../css/order.css";
+import Tab from "@mui/material/Tab";
+import { LocationOn } from "@mui/icons-material";
+import TabContext from "@mui/lab/TabContext";
+
+import ProcessOrders from "../../components/orders/processorders";
+import FinishedOrders from "../../components/orders/finishedorders";
+import { TabList } from "@mui/lab";
+import PausedOrders from "../../components/orders/pausedorders";
+import Marginer from "../../components/marginer";
 
 export function OrdersPage() {
-  return <Container>OrdersPage</Container>;
+  const [value, setValue] = useState("1");
+
+  /**HANDLERS */
+  const handleChange = (event: any, newValue: string) => {
+    setValue(newValue);
+  };
+  return (
+    <div className="order_page">
+      <Container
+        maxWidth="lg"
+        style={{ display: "flex", flexDirection: "row" }}
+        sx={{ mt: "50px", mb: "50px" }}>
+        <Stack className="order_left">
+          <TabContext value={value}>
+            <Box className="order_new_frame">
+              <Box
+                sx={{
+                  borderBottom: 1,
+                  borderColor: "divider",
+                  marginBottom: "20px",
+                }}>
+                <TabList
+                  onChange={handleChange}
+                  value={value}
+                  // aria-label="basic tabs example"
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginLeft: "50px",
+                    marginRight: "50px",
+                  }}>
+                  <Tab label="Buyurtmalar" value={"1"}></Tab>
+                  <Tab label="Jarayon" value={"2"}></Tab>
+                  <Tab label="Yakunlangan" value={"3"}></Tab>
+                </TabList>
+              </Box>
+            </Box>
+            <Marginer direction="vertical" height="1" width="1" bg="white" />
+
+            <Stack className="order_main_content">
+              <PausedOrders />
+              <ProcessOrders />
+              <FinishedOrders />
+            </Stack>
+          </TabContext>
+        </Stack>
+
+        <Stack className="order_right">
+          <Stack className="user_box">
+            <img src="/icons/hero.jpg" className="user_img" />
+
+            <Box className="user_name">Ismoilov Akmaljon</Box>
+            <Box className="who">Foydalanuvchi</Box>
+            <Marginer
+              direction="vertical"
+              height="1"
+              width="120"
+              bg="#A1A1A1"
+            />
+            <Box className="location_user">
+              <span>
+                {" "}
+                <img src="/icons/location.png" alt="" />
+              </span>
+              Seoul
+            </Box>
+          </Stack>
+
+          <Stack className="payment">
+            <Box>
+              <input
+                type="number"
+                className="input_number"
+                placeholder="Contact Number:"
+              />
+            </Box>
+            <Stack
+              flexDirection={"row"}
+              width={"325px"}
+              mt={"10px"}
+              ml={"20px"}>
+              <input className="input_date" type="number" placeholder="07/24" />
+              <input
+                className="input_cvv"
+                type="number"
+                placeholder="CVV:010"
+              />
+            </Stack>
+            <Box>
+              {" "}
+              <input
+                type="number"
+                className="input_number"
+                placeholder="Ismoilov Akmaljon"
+              />
+            </Box>
+            <Stack flexDirection={"row"} className="cards">
+              <img src="/icons/Shape 329.svg" />
+              <img src="/icons/Paypal.svg" />
+              <img src="/icons/Shape 327.png" />
+              <img src="/icons/Western-union.svg" />
+            </Stack>
+          </Stack>
+        </Stack>
+      </Container>
+      ;
+    </div>
+  );
 }

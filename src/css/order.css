@@ -1,0 +1,211 @@
+.order_page {
+  width: 100%;
+  height: auto;
+  background: #0b0e11;
+  display: flex;
+}
+.order_page .order_left {
+  width: 70%;
+  height: auto;
+}
+
+.order_page .order_right {
+  margin-top: 86px;
+  margin-left: 30px;
+  width: 30%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+.order_page .order_main_content {
+  width: 100%;
+  height: auto;
+}
+.order_page .order_main_box {
+  width: 100%;
+  height: 284px;
+  /* transform: rotate(90deg); */
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 16px;
+  background: #fff;
+  margin-top: 40px;
+  box-shadow: 0px 4px 16px 0px rgba(242, 189, 87, 0.04) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.order_page .order_box_scroll {
+  overflow-y: scroll;
+  max-height: 200px;
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+
+.order_page .orderDishImg {
+  width: 50px;
+  height: 47px;
+  flex-shrink: 0;
+  border-radius: 29px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.order_page .ordersName_price {
+  display: flex;
+  width: 590px;
+  flex-direction: row;
+  margin-left: 40px;
+  margin-top: 5px;
+  justify-content: space-between;
+}
+.order_page .priceBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.order_page .total_price_box {
+  display: flex;
+  justify-content: space-around;
+  padding: 3px;
+  height: 41px;
+  border-radius: 5px;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  margin-bottom: 10px;
+  /* margin-top: 86px; */
+}
+.order_page .total_price_box p {
+  color: #000;
+  text-align: center;
+  font-family: Commissioner;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
+}
+.order_page .total_price_box.process {
+  background: rgba(217, 217, 217, 0.5);
+
+  /* margin-top: 86px; */
+}
+.order_page .total_price_box.jarayon {
+  background: rgba(140, 102, 242, 0.81);
+
+  /* margin-top: 86px; */
+}
+.order_page .total_price_box.finished {
+  background: #ff3434;
+
+  /* margin-top: 86px; */
+}
+.order_page .img_title {
+  display: flex;
+  flex-direction: row;
+}
+.order_page .boxTotal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.order_page .boxTotal.process {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 70%;
+  height: 41px;
+}
+
+.order_page .user_box {
+  width: 372px;
+  height: 308px;
+  flex-shrink: 0;
+
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0px 4px 16px 0px rgba(242, 189, 87, 0.04) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.order_page .user_box .user_img {
+  width: 117px;
+  height: 112px;
+  flex-shrink: 0;
+  margin-top: 20px;
+  border-radius: 37px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin-left: 128px;
+}
+.order_page .user_box .user_name {
+  color: #08090d;
+  font-family: "Commissioner";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
+  margin-top: 10px;
+  margin-left: 67px;
+  margin-right: 67px;
+}
+.order_page .user_box .who {
+  color: #a1a1a1;
+  font-family: "Commissioner";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
+  margin-bottom: 40px;
+  margin-left: 116px;
+}
+.order_page .location_user {
+  margin-top: 8px;
+  margin-left: 31px;
+}
+/***paynebt*/
+.order_page .payment {
+  display: flex;
+  flex-direction: column;
+  width: 372px;
+  height: 251px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: #fff;
+  margin-top: 13px;
+}
+.order_page .input_number {
+  width: 332px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #f5f5f5;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-style: none;
+}
+.order_page .input_date {
+  width: 162px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #f5f5f5;
+  border-style: none;
+}
+.order_page .input_cvv {
+  width: 162px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #f5f5f5;
+  border-style: none;
+  margin-left: 8px;
+}
+.order_page .cards {
+  justify-content: space-between;
+  width: 200px;
+  margin-top: 20px;
+  margin-left: 83px;
+}
