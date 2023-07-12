@@ -23,6 +23,7 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Button from "@mui/material/Button";
 import { MySettings } from "./mySettings";
+import TViewer from "../../components/tuiEditor/TViewer";
 export function VisitOtherPage() {
   const [value, setValue] = useState("1");
 
@@ -38,7 +39,7 @@ export function VisitOtherPage() {
             <Stack className="my_page_left">
               <Box display={"flex"} flexDirection={"column"}>
                 <TabPanel value={"1"}>
-                  <Box className="menu_name">Mening Maqolalarim</Box>
+                  <Box className="menu_name">Maqolalar</Box>
                   <Box className="menu_content">
                     <MemberPosts />
 
@@ -78,23 +79,24 @@ export function VisitOtherPage() {
                     <MemberFollowing actions_enabled={false} />
                   </Box>
                 </TabPanel>
+
                 <TabPanel value={"4"}>
-                  <Box className="menu_name">Maqola Yozish</Box>
-                  <Box className="write-content"></Box>
-                </TabPanel>
-                <TabPanel value={"5"}>
                   <Box className="menu_name">Tanlangan Maqola</Box>
-                  <Box className="menu-content"></Box>
+                  <Box className="menu-content">
+                    {" "}
+                    <TViewer text={`<h3>Hello</h3>`} />
+                  </Box>
                 </TabPanel>
               </Box>
             </Stack>
 
             <Stack className="my_page_right">
               <Box className="order_info_box">
-                <a onClick={() => setValue("6")} className="settings_btn">
-                  <SettingsIcon />
-                </a>
-                <Box display="flex" flexDirection="column" alignItems="center">
+                <Box
+                  display="flex"
+                  mt={"10px"}
+                  flexDirection="column"
+                  alignItems="center">
                   <div className="order_user_img">
                     <img
                       src="/community/cute_girl.png"
@@ -102,6 +104,7 @@ export function VisitOtherPage() {
                         width: "117px",
                         height: "112px",
                         borderRadius: "37px",
+                        marginTop: "10px",
                       }}
                       className="order_user_avatar"
                     />
@@ -171,6 +174,7 @@ export function VisitOtherPage() {
                     value="1"
                     component={() => (
                       <div
+                        style={{ cursor: "pointer" }}
                         className={`menu_box ${value}`}
                         onClick={() => setValue("1")}>
                         <img src="/icons/pencil.png" />
@@ -183,6 +187,7 @@ export function VisitOtherPage() {
                     value="2"
                     component={() => (
                       <div
+                        style={{ cursor: "pointer" }}
                         className={`menu_box ${value}`}
                         onClick={() => setValue("2")}>
                         <img src={"/icons/User.png"} />
@@ -195,6 +200,7 @@ export function VisitOtherPage() {
                     value="3"
                     component={() => (
                       <div
+                        style={{ cursor: "pointer" }}
                         className={`menu_box ${value}`}
                         onClick={() => setValue("3")}>
                         <img src={"/icons/group.png"} alt="Following" />
