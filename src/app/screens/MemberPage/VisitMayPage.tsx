@@ -23,6 +23,8 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Button from "@mui/material/Button";
 import { MySettings } from "./mySettings";
+import { TuiEditor } from "../../components/tuiEditor/TuiEditor";
+import TViewer from "../../components/tuiEditor/TViewer";
 export function VisitMyPage() {
   const [value, setValue] = useState("1");
 
@@ -80,11 +82,15 @@ export function VisitMyPage() {
                 </TabPanel>
                 <TabPanel value={"4"}>
                   <Box className="menu_name">Maqola Yozish</Box>
-                  <Box className="write-content"></Box>
+                  <Box className="write-content">
+                    <TuiEditor />
+                  </Box>
                 </TabPanel>
                 <TabPanel value={"5"}>
                   <Box className="menu_name">Tanlangan Maqola</Box>
-                  <Box className="menu-content"></Box>
+                  <Box className="menu-content">
+                    <TViewer text={`<h3>Hello</h3>`} />
+                  </Box>
                 </TabPanel>
                 <TabPanel value={"6"}>
                   <Box className="menu_name">Malumotlarni O'zgartirish</Box>
@@ -163,6 +169,7 @@ export function VisitMyPage() {
                     value="1"
                     component={() => (
                       <div
+                        style={{ cursor: "pointer" }}
                         className={`menu_box ${value}`}
                         onClick={() => setValue("1")}>
                         <img src="/icons/pencil.png" />
@@ -175,6 +182,7 @@ export function VisitMyPage() {
                     value="2"
                     component={() => (
                       <div
+                        style={{ cursor: "pointer" }}
                         className={`menu_box ${value}`}
                         onClick={() => setValue("2")}>
                         <img src={"/icons/User.png"} />
@@ -187,6 +195,7 @@ export function VisitMyPage() {
                     value="3"
                     component={() => (
                       <div
+                        style={{ cursor: "pointer" }}
                         className={`menu_box ${value}`}
                         onClick={() => setValue("3")}>
                         <img src={"/icons/group.png"} alt="Following" />
