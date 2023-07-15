@@ -1,0 +1,93 @@
+.help_page {
+  width: 100%;
+  height: auto;
+  background: #0b0e11;
+
+  display: flex;
+}
+.help_page .tablist_box {
+  width: 100%;
+
+  border-bottom: 1px solid rgba(228, 228, 228, 0.83);
+}
+
+.help_page .help_main_content {
+  margin-top: 24px;
+}
+.help_page .theRules_box {
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.help_page .word_style {
+  color: #172b4d;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.help_page .accordion_menu .question_box {
+  width: 100%;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 8px 8px 0px 0px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.help_page .accordion_menu .answer_box {
+  width: 100%;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 0px 0px 8px 8px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin-top: 16px;
+  margin-bottom: 18px;
+}
+/*****3333*/
+.help_page .xat_container {
+  width: 100%;
+  height: 771.5px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-1, #ededed);
+  background: var(--color-5, #fff);
+  box-shadow: 0px 20px 30px 0px rgba(25, 25, 46, 0.04);
+}
+
+.help_page .input {
+  width: 90%;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid #140342;
+  background: var(--color-white, #fff);
+}
+.help_page .input_header {
+  color: var(--head-color, #140342);
+  font-family: Verdana;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 31px;
+  margin-bottom: 11px;
+}
+.help_page .input_xat {
+  width: 90%;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid #140342;
+  background: var(--color-white, #fff);
+}
+.help_page .btn {
+  width: 104px;
+  height: 36px;
+  margin-top: 11px;
+  align-items: end;
+}
