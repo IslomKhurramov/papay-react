@@ -3,6 +3,7 @@ import assert from "assert";
 import { serviceApi } from "../../lib/config";
 import { Definer } from "../../lib/Definer";
 import { Restaurant } from "../../types/user";
+import { SearchObj } from "../../types/others";
 
 class RestaurantApiService {
   private readonly path: string;
@@ -24,6 +25,23 @@ class RestaurantApiService {
       return top_restaurants;
     } catch (err: any) {
       console.log("ERROR::getTopRestaurants", err.message);
+      throw err;
+    }
+  }
+
+  async getRestaurant(data: SearchObj) {
+    try {
+      const url = `/restaurants?order=${data.order}&page=${data.page}&limit=${data.limit}`;
+      const result = await axios.get(this.path + url, {
+        withCredentials: true,
+      });
+      assert.ok(result, Definer.general_err1);
+
+      console.log("result::", result.data.state);
+      const restaurants: Restaurant[] = result.data.data;
+      return restaurants;
+    } catch (err: any) {
+      console.log("ERROR::getRestaurant", err.message);
       throw err;
     }
   }
