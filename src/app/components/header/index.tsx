@@ -1,18 +1,19 @@
+import { Logout } from "@mui/icons-material";
 import {
   Badge,
   Box,
   Button,
   Container,
   IconButton,
+  ListItem,
+  Menu,
+  MenuItem,
   Stack,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export function NavbarHome(props: any) {
-  const [count, setCount] = useState(0);
-  const [value, setValue] = useState(true);
-
   return (
     <div className="format home_navbar">
       <Container>
@@ -49,6 +50,13 @@ export function NavbarHome(props: any) {
                 Jamiyat
               </NavLink>
             </Box>
+            {props.verifiedMemberData ? (
+              <Box className="hover-line" onClick={props.setPath}>
+                <NavLink to={"/member-page"} activeClassName="underline">
+                  Sahifam
+                </NavLink>
+              </Box>
+            ) : null}
             <Box className="hover-line" onClick={props.setPath}>
               <NavLink to={"/help"} activeClassName="underline">
                 Yordam
@@ -69,14 +77,63 @@ export function NavbarHome(props: any) {
                 </Badge>
               </IconButton>
             </Box>
-            <Box>
-              <Button
-                variant="contained"
-                style={{ color: "#FFFFFF", background: "#1976d2" }}
-                onClick={props.handleLoginOpen}>
-                KIRISH
-              </Button>
-            </Box>
+            {!props.verifiedMemberData ? (
+              <Box>
+                <Button
+                  variant="contained"
+                  style={{ color: "#FFFFFF", background: "#1976d2" }}
+                  onClick={props.handleLoginOpen}>
+                  KIRISH
+                </Button>
+              </Box>
+            ) : (
+              <img
+                style={{ width: "48px", height: "48px", borderRadius: "24px" }}
+                src={props.verifiedMemberData.mb_image}
+                onClick={props.handleLogOutClick}
+              />
+            )}
+
+            <Menu
+              open={props.open}
+              onClose={props.handleCloseLogOut}
+              onClick={props.handleCloseLogOut}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&:before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "background.paper",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              anchorEl={props.anchorEl}>
+              <MenuItem onClick={props.handleLogOutRequest}>
+                <ListItem>
+                  <Logout fontSize="small" style={{ color: "blue" }} />
+                </ListItem>
+                LogOut
+              </MenuItem>
+            </Menu>
           </Stack>
         </Stack>
 
@@ -90,21 +147,21 @@ export function NavbarHome(props: any) {
             <Box className="define_restaurant">
               The Authentic Restaurant & Cafe
             </Box>
-            <Box className="timeline_service">
-              {count} soat xizmatingizdamiz.
-            </Box>
+            <Box className="timeline_service">24 soat xizmatingizdamiz.</Box>
             <Box sx={{ mt: "90px" }}>
-              <Button
-                variant="contained"
-                style={{
-                  width: "210px",
-                  height: "60px",
-                  background: "#1976d2",
-                  color: "#FFFFFF",
-                }}
-                onClick={props.handleSignUpOpen}>
-                RO'YHATDAN O'TISH
-              </Button>
+              {!props.verifiedMemberData ? (
+                <Button
+                  variant="contained"
+                  style={{
+                    width: "210px",
+                    height: "60px",
+                    background: "#1976d2",
+                    color: "#FFFFFF",
+                  }}
+                  onClick={props.handleSignUpOpen}>
+                  RO'YHATDAN O'TISH
+                </Button>
+              ) : null}
             </Box>
           </Stack>
           <Stack flexDirection={"column"}>

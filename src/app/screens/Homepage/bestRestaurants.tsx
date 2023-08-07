@@ -50,7 +50,7 @@ export function BestRestaurants() {
               const image_path = `${serverApi}/${ele.mb_image}`;
 
               return (
-                <CssVarsProvider>
+                <CssVarsProvider key={ele._id}>
                   <Card
                     variant="outlined"
                     sx={{ minHeight: 483, minWidth: 320, mr: "35px" }}>

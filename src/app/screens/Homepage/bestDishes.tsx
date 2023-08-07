@@ -52,7 +52,7 @@ export function BestDishes() {
                   ? product.product_volume + "l"
                   : product.product_size + "size";
               return (
-                <Box className="dish_box">
+                <Box key={product._id} className="dish_box">
                   <Stack
                     className="dish_img"
                     sx={{

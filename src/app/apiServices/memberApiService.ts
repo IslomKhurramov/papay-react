@@ -16,12 +16,12 @@ class MemberApiService {
       const result = await axios.post(this.path + "/login", login_data, {
         withCredentials: true,
       });
-      console.log("STATE:::", result.data.data);
+      console.log("STATE:::", result.data.state);
       assert.ok(result?.data, Definer.general_err1);
       assert.ok(result?.data?.state != "fail", result?.data?.message);
 
       const memeber: Member = result.data.data;
-      localStorage.setItem("memebr_data", JSON.stringify(memeber));
+      localStorage.setItem("member_data", JSON.stringify(memeber));
       return memeber;
     } catch (err: any) {
       console.log(`ERROR::: loginRequest ${err.message}`);
@@ -43,6 +43,22 @@ class MemberApiService {
       return memeber;
     } catch (err: any) {
       console.log(`ERROR::: signupRequest ${err.message}`);
+      throw err;
+    }
+  }
+
+  public async logOutRequest() {
+    try {
+      const result = await axios.get(this.path + "/logout", {
+        withCredentials: true,
+      });
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data?.state != "fail", result?.data?.message);
+
+      const logout_result = result.data.state;
+      return logout_result == "success";
+    } catch (err: any) {
+      console.log(`ERROR::: logOutRequest ${err.message}`);
       throw err;
     }
   }
