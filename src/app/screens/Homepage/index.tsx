@@ -32,10 +32,8 @@ export function Homepage() {
   const { setTopRestaurants, setBestRestaurants } = actionDispatch(
     useDispatch()
   );
-  //selector: store => data
 
   useEffect(() => {
-    //backend data request => data
     const restaurantService = new RestaurantApiService();
     restaurantService
       .getTopRestaurant()

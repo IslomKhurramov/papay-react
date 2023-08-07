@@ -9,7 +9,7 @@ import reduxLogger from "redux-logger";
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(reduxLogger),
+    getDefaultMiddleware().concat(reduxLogger), //bizzi malumotlarimizzi (console logdagi) storega qushib beradi
 
   reducer: {
     homePage: HomePageReducer,
