@@ -200,7 +200,9 @@ export function BestRestaurants() {
             flexDirection={"row"}
             justifyContent={"flex-end"}
             style={{ width: "100%", marginTop: "16px" }}>
-            <Button style={{ background: "#1976d2", color: "#FFFFFF" }}>
+            <Button
+              onClick={goRestaurantsHandler}
+              style={{ background: "#1976d2", color: "#FFFFFF" }}>
               Barchasini Ko'rish
             </Button>
           </Stack>

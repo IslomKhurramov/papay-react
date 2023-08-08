@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Pagination from "@mui/material/Pagination";
@@ -17,12 +17,40 @@ import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import CallIcon from "@mui/icons-material/Call";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Visibility from "@mui/icons-material/Visibility";
+/**REDUX */
+import { useDispatch, useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveTargetRestaurants } from "./selector";
+import { Restaurant } from "../../../types/user";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setTargetRestaurants } from "./slice";
+
+//REDUX SLICE
+const actionDispatch = (dispach: Dispatch) => ({
+  setTargetRestaurants: (data: Restaurant[]) =>
+    dispach(setTargetRestaurants(data)),
+});
+
+//REDUX SELECTOR
+const targetRestaurantsRetriever = createSelector(
+  retrieveTargetRestaurants,
+  (targetRestaurants) => ({
+    targetRestaurants,
+  })
+);
 
 const order_list = Array.from(Array(8).keys());
 console.log(order_list);
 
 export function AllRestaurants() {
+  /**INITIALIZATION */
+  const { setTargetRestaurants } = actionDispatch(useDispatch());
+  const { targetRestaurants } = useSelector(targetRestaurantsRetriever);
+
+  useEffect(() => {
+    //TODO: retrieve targetREstaurantsData
+  }, []);
+
   return (
     <div className="all_restaurant">
       <Container>
