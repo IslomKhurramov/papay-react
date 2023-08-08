@@ -14,7 +14,10 @@ import { createSelector } from "reselect";
 import { retrieveTopRestaurants } from "./selector";
 import { Restaurant } from "../../../types/user";
 import { serverApi } from "../../../lib/config";
-import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
 import assert from "assert";
 import { Definer } from "../../../lib/Definer";
 import MemberApiService from "../../apiServices/memberApiService";
@@ -55,6 +58,8 @@ export function TopRestaurants() {
         e.target.style.fill = "white";
         refs.current[like_result.like_ref_id].innerHTML--;
       }
+
+      await sweetTopSmallSuccessAlert("success", 700, false);
     } catch (err: any) {
       console.log("ERROR:tagetLikeTop", err);
       sweetErrorHandling(err).then();
@@ -115,6 +120,9 @@ export function TopRestaurants() {
                           borderTop: "1px solid",
                         }}>
                         <IconButton
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
                           aria-label="Like minimal photography"
                           size="md"
                           variant="solid"
