@@ -4,6 +4,7 @@ import { Restaurant } from "./user";
 
 /**REACT APP STATE */
 export interface AppRooteState {
+  restaurantPage: any;
   homePage: HomePageState;
   restaurantPageState: RestaurantPageState;
 }

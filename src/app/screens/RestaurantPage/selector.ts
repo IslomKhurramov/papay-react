@@ -1,8 +1,7 @@
 import { createSelector } from "reselect";
 import { AppRooteState } from "../../../types/screen";
 
-const selectRestaurantPage = (state: AppRooteState) =>
-  state.restaurantPageState;
+const selectRestaurantPage = (state: AppRooteState) => state.restaurantPage;
 export const retrieveTargetRestaurants = createSelector(
   selectRestaurantPage,
   (RestaurantPage) => RestaurantPage.targetRestaurants
