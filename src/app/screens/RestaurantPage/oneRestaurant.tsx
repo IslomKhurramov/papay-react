@@ -12,7 +12,7 @@ import MonetizatioOnIcon from "@mui/icons-material/MonetizationOn";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Badge from "@mui/material/Badge";
 import { ArrowBackIosNew } from "@mui/icons-material";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 /**REDUX */
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
@@ -33,6 +33,7 @@ import { Product } from "../../../types/product";
 import { ProductSearchObject } from "../../../types/others";
 import ProductApiService from "../../apiServices/productApiService";
 import { serverApi } from "../../../lib/config";
+import RestaurantApiService from "../../apiServices/restaurantApiService";
 
 //REDUX SLICE
 const actionDispatch = (dispach: Dispatch) => ({
@@ -64,6 +65,8 @@ const targetProductsRetriever = createSelector(
 
 export function OneRestaurant() {
   /**INITIALIZATION */
+  const history = useHistory();
+
   let { restaurant_id } = useParams<{ restaurant_id: string }>();
   const { setRandomRestaurants, setChosenRestaurant, setTargetProducts } =
     actionDispatch(useDispatch());
@@ -82,13 +85,26 @@ export function OneRestaurant() {
     });
 
   useEffect(() => {
+    const restaurantService = new RestaurantApiService();
+    restaurantService
+      .getRestaurant({ page: 1, limit: 10, order: "random" })
+      .then((data) => setRandomRestaurants(data))
+      .catch((err) => console.log(err));
+
     const productService = new ProductApiService();
     productService
       .getTargetProducts(targetProductSearchObject)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
-  }, [targetProductSearchObject]);
+  }, [targetProductSearchObject, randomRestaurantsRetriever]);
 
+  /**HANDLERS */
+  const chosenRestaurantHandler = (id: string) => {
+    setChosenRestaurantId(id);
+    targetProductSearchObject.restaurant_mb_id = id;
+    setTargetProductSearchObject({ ...targetProductSearchObject });
+    history.push(`/restaurant/${id}`);
+  };
   return (
     <div className="single_restaurant">
       <Container>
@@ -134,17 +150,23 @@ export function OneRestaurant() {
                 nextEl: ".restaurant-next",
                 prevEl: ".restaurant-prev",
               }}>
-              {/* {restaurant_list.map((ele, order) => {
+              {randomRestaurants.map((ele: Restaurant) => {
+                const updatedData = JSON.parse(
+                  JSON.stringify(ele.mb_image).replace(/\\/g, "/")
+                );
+                const image_path1 = `${serverApi}/${updatedData}`;
+
                 return (
                   <SwiperSlide
+                    onClick={() => chosenRestaurantHandler(ele._id)}
                     style={{ cursor: "pointer" }}
-                    key={order}
+                    key={ele._id}
                     className="restaurant_avatars">
-                    <img src="/restaurant/belissimo.jpg" />
-                    <span>Burak</span>
+                    <img src={image_path1} />
+                    <span>{ele.mb_nick}</span>
                   </SwiperSlide>
                 );
-              })} */}
+              })}
             </Swiper>
             <Box
               className="next_btn restaurant-next"
