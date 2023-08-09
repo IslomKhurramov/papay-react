@@ -34,6 +34,7 @@ import {
   sweetErrorHandling,
   sweetTopSmallSuccessAlert,
 } from "../../../lib/sweetAlert";
+import { useHistory } from "react-router-dom";
 
 //REDUX SLICE
 const actionDispatch = (dispach: Dispatch) => ({
@@ -59,6 +60,7 @@ export function AllRestaurants() {
     order: "mb_point",
   });
   const refs: any = useRef([]);
+  const history = useHistory();
 
   useEffect(() => {
     //TODO: retrieve targetREstaurantsData
@@ -70,6 +72,9 @@ export function AllRestaurants() {
   }, [targetSearchObject]);
 
   //HANDLERS
+  const chosenRestaurantHandler = (id: string) => {
+    history.push(`/restaurant/${id}`);
+  };
   const searchHandler = (category: string) => {
     targetSearchObject.page = 1;
     targetSearchObject.order = category;
@@ -140,12 +145,14 @@ export function AllRestaurants() {
                 const image_path = `${serverApi}/${ele.mb_image}`;
                 return (
                   <Card
+                    onClick={() => chosenRestaurantHandler(ele._id)}
                     variant="outlined"
                     sx={{
                       minHeight: 410,
                       minWidth: 290,
                       mx: "17px",
                       my: "20px",
+                      cursor: "pointer",
                     }}>
                     <CardOverflow>
                       <AspectRatio ratio={"1"}>
