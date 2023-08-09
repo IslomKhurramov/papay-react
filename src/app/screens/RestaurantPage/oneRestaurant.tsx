@@ -34,6 +34,13 @@ import { ProductSearchObject } from "../../../types/others";
 import ProductApiService from "../../apiServices/productApiService";
 import { serverApi } from "../../../lib/config";
 import RestaurantApiService from "../../apiServices/restaurantApiService";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import MemberApiService from "../../apiServices/memberApiService";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
 
 //REDUX SLICE
 const actionDispatch = (dispach: Dispatch) => ({
@@ -84,6 +91,8 @@ export function OneRestaurant() {
       product_collection: "dish",
     });
 
+  const [productRebuild, setProductRebuild] = useState<Date>(new Date());
+
   useEffect(() => {
     const restaurantService = new RestaurantApiService();
     restaurantService
@@ -96,7 +105,7 @@ export function OneRestaurant() {
       .getTargetProducts(targetProductSearchObject)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
-  }, [targetProductSearchObject, randomRestaurantsRetriever]);
+  }, [targetProductSearchObject, productRebuild]);
 
   /**HANDLERS */
   const chosenRestaurantHandler = (id: string) => {
@@ -104,6 +113,36 @@ export function OneRestaurant() {
     targetProductSearchObject.restaurant_mb_id = id;
     setTargetProductSearchObject({ ...targetProductSearchObject });
     history.push(`/restaurant/${id}`);
+  };
+
+  const searchCollectionHandler = (collection: string) => {
+    targetProductSearchObject.page = 1;
+    targetProductSearchObject.product_collection = collection;
+    setTargetProductSearchObject({ ...targetProductSearchObject });
+  };
+
+  const searchOrderHandler = (order: string) => {
+    targetProductSearchObject.page = 1;
+    targetProductSearchObject.order = order;
+    setTargetProductSearchObject({ ...targetProductSearchObject });
+  };
+
+  const targetLikeProduct = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const memberService = new MemberApiService();
+      const like_result: any = await memberService.memberLikeTarget({
+        like_ref_id: e.target.id,
+        group_type: "product",
+      });
+      assert.ok(like_result, Definer.general_err1);
+
+      await sweetTopSmallSuccessAlert("success", 700, false);
+      setProductRebuild(new Date());
+    } catch (err: any) {
+      console.log("ERROR:targetLikeProduct", err);
+      sweetErrorHandling(err).then();
+    }
   };
   return (
     <div className="single_restaurant">
@@ -182,16 +221,28 @@ export function OneRestaurant() {
             width={"90%"}
             sx={{ mt: "65px" }}>
             <Box className="dishs_filter_box">
-              <Button variant="contained" color="secondary">
+              <Button
+                onClick={() => searchOrderHandler("createdAt")}
+                variant="contained"
+                color="secondary">
                 New
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                onClick={() => searchOrderHandler("product_price")}
+                variant="contained"
+                color="secondary">
                 Price
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                onClick={() => searchOrderHandler("product_likes")}
+                variant="contained"
+                color="secondary">
                 Likes
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => searchOrderHandler("product_views")}>
                 Views
               </Button>
             </Box>
@@ -202,19 +253,34 @@ export function OneRestaurant() {
             flexDirection={"row"}>
             <Stack className="dish_category_box">
               <div className="dish_category_main">
-                <Button variant="contained" color="secondary">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => searchCollectionHandler("etc")}>
                   boshqa
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button
+                  onClick={() => searchCollectionHandler("dessert")}
+                  variant="contained"
+                  color="secondary">
                   dessert
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button
+                  onClick={() => searchCollectionHandler("drink")}
+                  variant="contained"
+                  color="secondary">
                   ichimlik
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button
+                  onClick={() => searchCollectionHandler("salad")}
+                  variant="contained"
+                  color="secondary">
                   salad
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button
+                  onClick={() => searchCollectionHandler("dish")}
+                  variant="contained"
+                  color="secondary">
                   ovqatlar
                 </Button>
               </div>
@@ -246,8 +312,10 @@ export function OneRestaurant() {
                           color="primary">
                           <Checkbox
                             icon={<FavoriteBorder style={{ color: "white" }} />}
-                            id={`${product._id}`}
+                            id={product._id}
                             checkedIcon={<Favorite style={{ color: "red" }} />}
+                            onClick={targetLikeProduct}
+                            /*@ts-ignore*/
                             checked={
                               product?.me_liked &&
                               product?.me_liked[0]?.my_favorite
