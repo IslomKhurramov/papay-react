@@ -100,12 +100,17 @@ export function OneRestaurant() {
       .then((data) => setRandomRestaurants(data))
       .catch((err) => console.log(err));
 
+    restaurantService
+      .getChosenRestaurant(chosenRestaurantId)
+      .then((data) => setChosenRestaurant(data))
+      .catch((err) => console.log(err));
+
     const productService = new ProductApiService();
     productService
       .getTargetProducts(targetProductSearchObject)
       .then((data) => setTargetProducts(data))
       .catch((err) => console.log(err));
-  }, [targetProductSearchObject, productRebuild]);
+  }, [targetProductSearchObject, chosenRestaurantId, productRebuild]);
 
   /**HANDLERS */
   const chosenRestaurantHandler = (id: string) => {
@@ -126,6 +131,9 @@ export function OneRestaurant() {
     targetProductSearchObject.order = order;
     setTargetProductSearchObject({ ...targetProductSearchObject });
   };
+  const chosenDishHandler = (id: string) => {
+    history.push(`/restaurant/dish/${id}`);
+  };
 
   const targetLikeProduct = async (e: any) => {
     try {
@@ -144,6 +152,11 @@ export function OneRestaurant() {
       sweetErrorHandling(err).then();
     }
   };
+
+  // const updatedData = JSON.parse(
+  //   JSON.stringify(chosenRestaurant.mb_image).replace(/\\/g, "/")
+  // );
+  // const img_path1 = `${serverApi}/${updatedData}`;
   return (
     <div className="single_restaurant">
       <Container>
@@ -299,9 +312,11 @@ export function OneRestaurant() {
                 return (
                   <Box className="dish_box" key={product._id}>
                     <Box
+                      onClick={() => chosenDishHandler(product._id)}
                       className="dish_img"
                       sx={{
                         backgroundImage: `url(${image_path})`,
+                        cursor: "pointer",
                       }}>
                       <div className="dish_sale">{size_volume}</div>
                       <Button
@@ -415,10 +430,12 @@ export function OneRestaurant() {
           sx={{ mt: "70px" }}>
           <Box
             className="about_left"
-            sx={{ backgroundImage: `url("/restaurant/boyinfood.jpg")` }}>
+            sx={{
+              backgroundImage: `url(${chosenRestaurant?.mb_image})`,
+            }}>
             <div className="about_left_desc">
-              <span>Burak</span>
-              <p>Eng mazali oshxona</p>
+              <span>{chosenRestaurant?.mb_nick}</span>
+              <p>{chosenRestaurant?.mb_description}</p>
             </div>
           </Box>
           <Box className="about_right">

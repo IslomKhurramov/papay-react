@@ -171,8 +171,8 @@ export function TopRestaurants() {
                             display: "flex",
                           }}>
                           <div
-                            ref={(element) =>
-                              (refs.current[ele._id] = element)
+                            ref={
+                              (element) => (refs.current[ele._id] = element) //HAR BITTA RESTARAN IDISINI REFERENCE ICHIGA SOXRANIT QB BERADI
                             }>
                             {ele.mb_likes}
                           </div>

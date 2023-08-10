@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Favorite,
   FavoriteBorder,
@@ -19,11 +19,102 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import Marginer from "../../components/marginer";
-
+import { useParams } from "react-router-dom";
+/**REDUX */
+import { useDispatch, useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import {
+  retrieveChosenProduct,
+  retrieveChosenRestaurants,
+  retrieveRandomRestaurants,
+  retrieveTargetProducts,
+  retrieveTargetRestaurants,
+} from "./selector";
+import { Restaurant } from "../../../types/user";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setChosenProduct, setChosenRestaurant } from "./slice";
+import ProductApiService from "../../apiServices/productApiService";
+import { Product } from "../../../types/product";
+import RestaurantApiService from "../../apiServices/restaurantApiService";
+import { serverApi } from "../../../lib/config";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import MemberApiService from "../../apiServices/memberApiService";
+/****************************************************************** */
+//REDUX SLICE
+const actionDispatch = (dispach: Dispatch) => ({
+  setChosenProduct: (data: Product) => dispach(setChosenProduct(data)),
+  setChosenRestaurant: (data: Restaurant) => dispach(setChosenRestaurant(data)),
+});
+/*********************************************************************** */
+//REDUX SELECTOR
+const chosenProductRetriever = createSelector(
+  retrieveChosenProduct,
+  (chosenProduct) => ({
+    chosenProduct,
+  })
+);
+const chosenRestaurantRetriever = createSelector(
+  retrieveChosenRestaurants,
+  (chosenRestaurant) => ({
+    chosenRestaurant,
+  })
+);
 const chosen_list = Array.from(Array(7).keys());
 
 export function ChosenDish() {
+  /**INITIALIZATION */
+  let { dish_id } = useParams<{ dish_id: string }>();
+  const { setChosenProduct, setChosenRestaurant } = actionDispatch(
+    useDispatch()
+  );
+  const { chosenProduct } = useSelector(chosenProductRetriever);
+  const { chosenRestaurant } = useSelector(chosenRestaurantRetriever);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const [productRebuild, setProductRebuild] = useState<Date>(new Date());
+
+  const dishRelatedProcess = async () => {
+    try {
+      const productService = new ProductApiService();
+      const product: Product = await productService.getChosenDish(dish_id);
+      setChosenProduct(product);
+
+      const restaurantService = new RestaurantApiService();
+      const restaurant = await restaurantService.getChosenRestaurant(
+        product.restaurant_mb_id
+      );
+      setChosenRestaurant(restaurant);
+    } catch (err) {
+      console.log("dishRelatedProcess", err);
+    }
+  };
+
+  useEffect(() => {
+    dishRelatedProcess().then();
+  }, [productRebuild]);
+
+  //HANDLERS
+  const targetLikeProduct = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      const memberService = new MemberApiService();
+      const like_result: any = await memberService.memberLikeTarget({
+        like_ref_id: e.target.id,
+        group_type: "product",
+      });
+      assert.ok(like_result, Definer.general_err1);
+
+      await sweetTopSmallSuccessAlert("success", 700, false);
+      setProductRebuild(new Date());
+    } catch (err: any) {
+      console.log("ERROR:targetLikeProduct", err);
+      sweetErrorHandling(err).then();
+    }
+  };
 
   return (
     <div className="chosen_dish_page">
@@ -34,10 +125,14 @@ export function ChosenDish() {
             navigation={true}
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2">
-            {chosen_list.map((ele, order) => {
+            {chosenProduct?.product_images.map((ele: string) => {
+              const image_path = `${serverApi}/${ele}`;
               return (
                 <SwiperSlide>
-                  <img src="/others/ovqat1.png" />
+                  <img
+                    style={{ width: "100%", height: "100%" }}
+                    src={image_path}
+                  />
                 </SwiperSlide>
               );
             })}
@@ -45,16 +140,17 @@ export function ChosenDish() {
           <Swiper
             // onSwiper={setThumbsSwiper}
             loop={true}
-            spaceBetween={10}
-            slidesPerView={3}
+            spaceBetween={20}
+            slidesPerView={chosenProduct?.product_images.length}
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
             className="dish_swiper_2">
-            {chosen_list.map((ele) => {
-              const image_path = `/others/ovqat1.png`;
+            {chosenProduct?.product_images.map((ele: string) => {
+              const image_path = `${serverApi}/${ele}`;
               return (
-                <SwiperSlide>
+                <SwiperSlide
+                  style={{ height: "107px", width: "120px", display: "flex" }}>
                   <img className={"dish_img"} src={image_path} />
                 </SwiperSlide>
               );
@@ -64,9 +160,9 @@ export function ChosenDish() {
 
         <Stack className="right_container">
           <Stack flexDirection={"column"} mt={"30px"} ml={"40px"}>
-            <Box className="title">Qovurilgan Go'sht</Box>
+            <Box className="title">{chosenProduct?.product_name}</Box>
             <Box className="title_info" mt={"16px"}>
-              Texas De Brazil
+              {chosenRestaurant?.mb_nick}
             </Box>
           </Stack>
 
@@ -97,17 +193,24 @@ export function ChosenDish() {
                       }}>
                       <Checkbox
                         {...label}
+                        id={chosenProduct?._id}
+                        onClick={targetLikeProduct}
                         icon={<FavoriteBorder />}
                         checkedIcon={<Favorite style={{ color: "red" }} />}
                         /*@ts-ignore*/
-                        checked={true}
+                        checked={
+                          chosenProduct?.me_liked &&
+                          chosenProduct?.me_liked[0]?.my_favorite
+                            ? true
+                            : false
+                        }
                       />
 
-                      <span>98 ta</span>
+                      <span>{chosenProduct?.product_likes} ta</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <RemoveRedEyeIcon sx={{ mr: "10px" }} />
-                      <span>1000 ta</span>
+                      <span>{chosenProduct?.product_views} ta</span>
                     </div>
                   </div>
                 </Stack>
@@ -117,9 +220,9 @@ export function ChosenDish() {
 
           <Stack mt={"20px"} ml={"40px"} mr={"40px"}>
             <Box className="dish_desc_info">
-              Many desktop publishing packages and web page editors now use
-              Lorem Ipsum as their default model text, and a search for 'lorem
-              ipsum' will uncover many web sites still in their infancy.
+              {chosenProduct?.product_description
+                ? chosenProduct?.product_description
+                : "no description"}
             </Box>
             <Marginer
               direction="horizontal"
@@ -130,7 +233,7 @@ export function ChosenDish() {
           </Stack>
           <div className={"dish_price_box"}>
             <span>Narxi:</span>
-            <span>$11</span>
+            <span>${chosenProduct?.product_price}</span>
           </div>
           <div className={"button_box"}>
             <Button

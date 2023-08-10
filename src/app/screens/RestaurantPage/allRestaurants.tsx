@@ -192,7 +192,7 @@ export function AllRestaurants() {
                     <Typography level="body2" sx={{ mt: 0.5, mb: 2 }}>
                       <Link
                         href=""
-                        startDecorator={<CallIcon />}
+                        startDecorator={<LocationOnRoundedIcon />}
                         textColor={"neutral.700"}>
                         {ele.mb_address}
                       </Link>
