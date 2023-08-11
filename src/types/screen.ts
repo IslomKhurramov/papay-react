@@ -5,6 +5,7 @@ import { Restaurant } from "./user";
 
 /**REACT APP STATE */
 export interface AppRooteState {
+  ordersPage: any;
   restaurantPage: any;
   homePage: HomePageState;
   restaurantPageState: RestaurantPageState;

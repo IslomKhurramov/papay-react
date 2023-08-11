@@ -2,6 +2,18 @@ import { Box, Button, Container, Stack } from "@mui/material";
 import React from "react";
 import TabPanel from "@mui/lab/TabPanel";
 import moment from "moment";
+/**REDUX */
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrievePausedOrders } from "../../screens/OrdersPage/selector";
+
+//REDUX SELECTOR
+const pausedOrdersRetriever = createSelector(
+  retrievePausedOrders,
+  (pausedOrders) => ({
+    pausedOrders,
+  })
+);
 
 const pausedOrders = [
   [1, 2, 3],
@@ -10,6 +22,9 @@ const pausedOrders = [
 ];
 
 export default function PausedOrders(props: any) {
+  /**INITIALIZATION */
+  // const { pausedOrders } = useSelector(pausedOrdersRetriever);
+
   const currentDate = moment().format("YYYY-MM-DD");
   const currentTime = moment().format("HH:mm");
   return (
