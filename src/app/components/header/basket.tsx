@@ -5,11 +5,22 @@ import Menu from "@mui/material/Menu";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import React from "react";
+import { CartItem } from "../../../types/others";
+import { serverApi } from "../../../lib/config";
 
 export default function Basket(props: any) {
   /** INITIALIZATIONS **/
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const { cartItems, onAdd } = props;
+  const itemsPrice = cartItems.reduce(
+    (a: any, c: CartItem) => a + c.price * c.quantity,
+    0
+  );
+  console.log(itemsPrice);
+  const shippingPrice = itemsPrice > 100 ? 0 : 2;
+  const totalProce = itemsPrice + shippingPrice;
 
   /** HANDLERS **/
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -75,8 +86,8 @@ export default function Basket(props: any) {
 
           <Box className={"orders_main_wrapper"}>
             <Box className={"orders_wrapper"}>
-              {[0].map(() => {
-                const image_path = "/others/qovurma.jpeg";
+              {cartItems.map((item: CartItem) => {
+                const image_path = `${serverApi}/${item.image}`;
                 return (
                   <Box className={"basket_info_box"}>
                     <div className={"cancel_btn"}>
@@ -86,8 +97,10 @@ export default function Basket(props: any) {
                       />
                     </div>
                     <img src={image_path} className={"product_img"} />
-                    <span className={"product_name"}>Shashlik</span>
-                    <p className={"product_price"}>$10 x 2</p>
+                    <span className={"product_name"}>{item.name}</span>
+                    <p className={"product_price"}>
+                      ${item.price} x {item.quantity}
+                    </p>
                     <Box sx={{ minWidth: 120 }}>
                       <div className="col-2">
                         <button
@@ -95,9 +108,7 @@ export default function Basket(props: any) {
                           className="remove">
                           -
                         </button>{" "}
-                        <button
-                          //  onClick={}
-                          className="add">
+                        <button onClick={() => onAdd(item)} className="add">
                           +
                         </button>
                       </div>
@@ -107,9 +118,11 @@ export default function Basket(props: any) {
               })}
             </Box>
           </Box>
-          {true ? (
+          {cartItems.length > 0 ? (
             <Box className={"to_order_box"}>
-              <span className={"price_text"}>Jami: $22 (20 + 2)</span>
+              <span className={"price_text"}>
+                Jami: ${totalProce} ({itemsPrice} + {shippingPrice})
+              </span>
               <Button
                 onClick={processOrderHandler}
                 startIcon={<ShoppingCartIcon />}
