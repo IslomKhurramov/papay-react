@@ -163,7 +163,7 @@ export function OneRestaurant(props: any) {
         <Stack flexDirection={"column"} alignItems={"center"}>
           <Stack className="avatar_big_box">
             <Box className="top_text">
-              <p>{chosenRestaurant.mb_nick} Restaurant</p>
+              <p>{chosenRestaurant?.mb_nick} Restaurant</p>
               <Box className="single_search_big_box">
                 <form action="" className="single_search_form">
                   <input
