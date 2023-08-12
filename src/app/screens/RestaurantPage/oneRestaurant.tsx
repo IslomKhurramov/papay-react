@@ -163,7 +163,7 @@ export function OneRestaurant(props: any) {
         <Stack flexDirection={"column"} alignItems={"center"}>
           <Stack className="avatar_big_box">
             <Box className="top_text">
-              <p>Texas De Brazil Restaurant</p>
+              <p>{chosenRestaurant.mb_nick} Restaurant</p>
               <Box className="single_search_big_box">
                 <form action="" className="single_search_form">
                   <input
@@ -436,7 +436,10 @@ export function OneRestaurant(props: any) {
           <Box
             className="about_left"
             sx={{
-              backgroundImage: `url(${chosenRestaurant?.mb_image})`,
+              backgroundImage: `url(${serverApi}/${chosenRestaurant?.mb_image.replace(
+                /\\/g,
+                "/"
+              )})`,
             }}>
             <div className="about_left_desc">
               <span>{chosenRestaurant?.mb_nick}</span>
