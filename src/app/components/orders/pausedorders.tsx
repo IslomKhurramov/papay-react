@@ -23,7 +23,7 @@ const pausedOrdersRetriever = createSelector(
   })
 );
 
-export default function PausedOrders(props: any) {
+export function PausedOrders(props: any) {
   /**INITIALIZATION */
   const { pausedOrders } = useSelector(pausedOrdersRetriever);
   /** HANDLERS **/

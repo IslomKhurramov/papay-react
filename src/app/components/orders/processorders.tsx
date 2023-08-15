@@ -26,7 +26,7 @@ const processOrdersRetriever = createSelector(
   })
 );
 
-export default function ProcessOrders(props: any) {
+export function ProcessOrders(props: any) {
   /**INITIALIZATION */
   const { processOrders } = useSelector(processOrdersRetriever);
   /** HANDLERS **/

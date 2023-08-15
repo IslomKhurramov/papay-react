@@ -20,7 +20,7 @@ const finishedOrdersRetriever = createSelector(
   })
 );
 
-export default function FinishedOrders(props: any) {
+export function FinishedOrders(props: any) {
   /**INITIALIZATION */
   const { finishedOrders } = useSelector(finishedOrdersRetriever);
   return (
