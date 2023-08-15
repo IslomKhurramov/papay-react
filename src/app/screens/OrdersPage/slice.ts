@@ -15,7 +15,7 @@ const ordersPageSlice = createSlice({
       state.pausedOrders = action.payload;
     },
     setProcessOrders: (state, action) => {
-      state.pausedOrders = action.payload;
+      state.processOrders = action.payload;
     },
     setFinishedOrders: (state, action) => {
       state.finishedOrders = action.payload;
