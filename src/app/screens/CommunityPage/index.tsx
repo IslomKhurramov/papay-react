@@ -49,6 +49,7 @@ export function CommunityPage() {
       limit: 5,
     }
   );
+  const [articlesRebuild, setArticlesRebuild] = useState<Date>(new Date());
 
   useEffect(() => {
     const communityService = new CommunityApiService();
@@ -56,7 +57,7 @@ export function CommunityPage() {
       .getTargetArticles(searchArticlesObj)
       .then((data) => setTargetBoArticles(data))
       .catch((err) => console.log(err));
-  }, [searchArticlesObj]);
+  }, [searchArticlesObj, articlesRebuild]);
   //HANDLES
   const handleChange = (event: any, newValue: string) => {
     searchArticlesObj.page = 1;
@@ -111,23 +112,37 @@ export function CommunityPage() {
 
                 <Box className="article_main">
                   <TabPanel value="1">
-                    <TargetArticles targetBoArticles={targetBoArticles} />
+                    <TargetArticles
+                      targetBoArticles={targetBoArticles}
+                      setArticlesRebuild={setArticlesRebuild}
+                    />
                   </TabPanel>
                   <TabPanel value="2">
-                    <TargetArticles targetBoArticles={targetBoArticles} />
+                    <TargetArticles
+                      targetBoArticles={targetBoArticles}
+                      setArticlesRebuild={setArticlesRebuild}
+                    />
                   </TabPanel>
                   <TabPanel value="3">
-                    <TargetArticles targetBoArticles={targetBoArticles} />
+                    <TargetArticles
+                      targetBoArticles={targetBoArticles}
+                      setArticlesRebuild={setArticlesRebuild}
+                    />
                   </TabPanel>
                   <TabPanel value="4">
-                    <TargetArticles targetBoArticles={targetBoArticles} />
+                    <TargetArticles
+                      targetBoArticles={targetBoArticles}
+                      setArticlesRebuild={setArticlesRebuild}
+                    />
                   </TabPanel>
                 </Box>
               </TabContext>
               <Box className="article_bott">
                 <Pagination
-                  count={3}
-                  page={1}
+                  count={
+                    searchArticlesObj.page >= 3 ? searchArticlesObj.page + 1 : 3
+                  }
+                  page={searchArticlesObj.page}
                   renderItem={(item) => (
                     <PaginationItem
                       components={{

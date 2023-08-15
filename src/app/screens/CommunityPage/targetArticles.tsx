@@ -10,12 +10,37 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import { BoArticle } from "../../../types/boArticle";
 import { serverApi } from "../../../lib/config";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import MemberApiService from "../../apiServices/memberApiService";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export function TargetArticles(props: any) {
+  const { setArticlesRebuild } = props;
   const time = moment().format("YY-MM-DD HH:mm");
+  /**HANDLERS */
+  const targetLikeHandler = async (e: any) => {
+    try {
+      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
 
+      const memberService = new MemberApiService();
+      const like_result = await memberService.memberLikeTarget({
+        like_ref_id: e.target.id,
+        group_type: "community",
+      });
+      assert.ok(like_result, Definer.general_err1);
+      await sweetTopSmallSuccessAlert("success", 700, false);
+      setArticlesRebuild(new Date());
+    } catch (err: any) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
   return (
     <Stack>
       {props.targetBoArticles?.map((article: BoArticle) => {
@@ -62,17 +87,22 @@ export function TargetArticles(props: any) {
                   }}>
                   <Checkbox
                     {...label}
+                    onClick={targetLikeHandler}
                     icon={<FavoriteBorder />}
                     checkedIcon={<Favorite style={{ color: "red" }} />}
                     id={article?._id}
                     /*@ts-ignore*/
-                    checked={false}
+                    checked={
+                      article?.me_liked && article.me_liked[0]?.my_favorite
+                        ? true
+                        : false
+                    }
                   />
                   <span>{article.art_likes}</span>
                   <Checkbox
                     id={article?._id}
                     /*@ts-ignore*/
-                    checked={false}
+                    checked={article?.id ? true : false}
                     {...label}
                     icon={<RemoveRedEyeIcon />}
                     checkedIcon={
