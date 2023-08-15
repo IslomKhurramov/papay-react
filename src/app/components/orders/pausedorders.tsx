@@ -140,12 +140,16 @@ export default function PausedOrders(props: any) {
                   <span>{currentTime}</span>
                 </Box>
                 <Button
+                  value={order._id}
                   onClick={deleteOrderHandler}
                   color="secondary"
                   variant="contained">
                   Bekor qilish
                 </Button>
-                <Button onClick={processOrderHandler} variant="contained">
+                <Button
+                  value={order._id}
+                  onClick={processOrderHandler}
+                  variant="contained">
                   To'lash
                 </Button>
               </Box>

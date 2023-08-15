@@ -8,6 +8,8 @@ import moment from "moment";
 
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
+import { BoArticle } from "../../../types/boArticle";
+import { serverApi } from "../../../lib/config";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -16,14 +18,15 @@ export function TargetArticles(props: any) {
 
   return (
     <Stack>
-      {props.targetBoArticles?.map((article: any, index: number) => {
-        const artImage = "/community/maria.jpg";
+      {props.targetBoArticles?.map((article: BoArticle) => {
+        const artImage = article?.art_image
+          ? `${serverApi}/${article.art_image}`
+          : "/community/maria.jpg";
         return (
           <Link
             className="all_article_box"
             sx={{ textDecoration: "none" }}
-            href={article.url}
-            key={index}>
+            href={``}>
             <Box
               className="all_article_img"
               sx={{ backgroundImage: `url(${artImage})` }}></Box>
@@ -31,20 +34,20 @@ export function TargetArticles(props: any) {
             <Box className="all_article_container">
               <Box alignItems={"center"} display={"flex"}>
                 <img
-                  src="/auth/auth.svg"
+                  src="/auth/default_user.svg"
                   width={"35px"}
                   style={{ borderRadius: "50%", backgroundSize: "cover" }}
                 />
-                <span className="all_article_author_user">Maria</span>
+                <span className="all_article_author_user">
+                  {article?.member_data.mb_nick}
+                </span>
               </Box>
               <Box
                 display={"flex"}
                 flexDirection={"column"}
                 sx={{ mt: "15px" }}>
-                <span className="all_article_title">Evaluation</span>
-                <span className="all_article_desc">
-                  Texas De Brazil zo'r restaurant
-                </span>
+                <span className="all_article_title">{article?.bo_id}</span>
+                <span className="all_article_desc">{article?.art_subject}</span>
               </Box>
               <Box
                 display={"flex"}
@@ -61,16 +64,22 @@ export function TargetArticles(props: any) {
                     {...label}
                     icon={<FavoriteBorder />}
                     checkedIcon={<Favorite style={{ color: "red" }} />}
+                    id={article?._id}
+                    /*@ts-ignore*/
+                    checked={false}
                   />
-                  <span>100</span>
+                  <span>{article.art_likes}</span>
                   <Checkbox
+                    id={article?._id}
+                    /*@ts-ignore*/
+                    checked={false}
                     {...label}
                     icon={<RemoveRedEyeIcon />}
                     checkedIcon={
                       <RemoveRedEyeIcon style={{ color: "yellow" }} />
                     }
                   />
-                  <span>1000</span>
+                  <span>{article?.art_views}</span>
                 </div>
               </Box>
             </Box>

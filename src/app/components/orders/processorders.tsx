@@ -117,7 +117,10 @@ export default function ProcessOrders(props: any) {
                 <Box mt={"5px"}>
                   {moment(order.createdAt).format("YY-MM-DD HH:mm")}
                 </Box>
-                <Button onClick={finishOrderHandler} variant="contained">
+                <Button
+                  value={order._id}
+                  onClick={finishOrderHandler}
+                  variant="contained">
                   Yakunlash
                 </Button>
               </Box>
