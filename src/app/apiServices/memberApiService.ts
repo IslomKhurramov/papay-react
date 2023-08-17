@@ -75,6 +75,7 @@ class MemberApiService {
 
       console.log("STATE:", result.data.state);
       const like_result: MemberLiken = result.data.data;
+      console.log("Data from server:", result.data.data);
       return like_result;
     } catch (err: any) {
       console.log(`ERROR::: memberLikeTarget ${err.message}`);

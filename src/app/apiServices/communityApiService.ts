@@ -26,7 +26,7 @@ class CommunityApiService {
       assert.ok(result?.data, Definer.general_err1);
       assert.ok(result?.data?.state != "fail", result?.data?.message);
 
-      console.log("STATE:", result.data.data);
+      console.log("STATE:", result.data.state);
 
       const articles: BoArticle[] = result.data.data;
       return articles;
@@ -57,7 +57,7 @@ class CommunityApiService {
 
   public async getChosenArticle(art_id: string) {
     try {
-      let url = `/community/single-article/:${art_id}`;
+      let url = `/community/single-article/${art_id}`;
 
       const result = await axios.get(this.path + url, {
         withCredentials: true,
