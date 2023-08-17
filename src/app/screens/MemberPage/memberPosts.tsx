@@ -69,6 +69,7 @@ export function MemberPosts(props: any) {
                       : "/community/cute_girl.png"
                   }
                   width="35px"
+                  height={"35px"}
                   style={{ borderRadius: "50%" }}
                 />
                 <span className="all_article_author_user">
@@ -98,6 +99,7 @@ export function MemberPosts(props: any) {
                   <Checkbox
                     sx={{ ml: "48px" }}
                     icon={<FavoriteBorder />}
+                    id={article?._id}
                     checkedIcon={<Favorite style={{ color: "red" }} />}
                     checked={
                       article?.me_liked && article?.me_liked[0]?.my_favorite
