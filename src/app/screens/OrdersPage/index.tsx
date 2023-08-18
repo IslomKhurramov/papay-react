@@ -14,9 +14,9 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { setPausedOrders, setProcessOrders, setFinishedOrders } from "./slice";
 import { Order } from "../../../types/order";
 import OrderApiService from "../../apiServices/orderApiService";
-import { PausedOrders } from "../../components/orders/pausedOrders";
-import { ProcessOrders } from "../../components/orders/processOrders";
-import { FinishedOrders } from "../../components/orders/finishedOrders";
+import { PausedOrders } from "../../components/orders/pausedorders";
+import { ProcessOrders } from "../../components/orders/processorders";
+import { FinishedOrders } from "../../components/orders/finishedorders";
 import { Member } from "../../../types/user";
 
 //REDUX SLICE

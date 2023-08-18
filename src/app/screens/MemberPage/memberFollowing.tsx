@@ -21,6 +21,7 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../../lib/sweetAlert";
 import { serverApi } from "../../../lib/config";
+import { useHistory } from "react-router-dom";
 
 //REDUX SLICE
 const actionDispatch = (dispach: Dispatch) => ({
@@ -40,6 +41,7 @@ const memberFollowingsRetriever = createSelector(
 export function MemberFollowing(props: any) {
   //INITALIZATION
   const { setFollowRebuild, mb_id, followRebuild } = props;
+  const history = useHistory();
 
   const { setMemberFollowings } = actionDispatch(useDispatch());
   const { memberFollowings } = useSelector(memberFollowingsRetriever);
@@ -76,6 +78,11 @@ export function MemberFollowing(props: any) {
       sweetErrorHandling(err).then();
     }
   };
+
+  const visitMemberHandler = (mb_id: string) => {
+    history.push(`/member-page/other?mb_id=${mb_id}`);
+    document.location.reload();
+  };
   return (
     <Stack>
       {memberFollowings.map((following: Following) => {
@@ -84,7 +91,12 @@ export function MemberFollowing(props: any) {
           : "/community/cute_girl.png";
         return (
           <Box className={"follow_box"}>
-            <Avatar alt={""} src={image_url} sx={{ width: 99, height: 99 }} />
+            <Avatar
+              alt={""}
+              src={image_url}
+              sx={{ width: 99, height: 99, cursor: "pointer" }}
+              onClick={() => visitMemberHandler(following?.follow_id)}
+            />
 
             <div
               style={{
@@ -98,7 +110,10 @@ export function MemberFollowing(props: any) {
               <span className={"username_text"}>
                 {following?.follow_member_data?.mb_type}
               </span>
-              <span className="name_text">
+              <span
+                className="name_text"
+                style={{ cursor: "pointer" }}
+                onClick={() => visitMemberHandler(following?.follow_id)}>
                 {following?.follow_member_data?.mb_nick}
               </span>
             </div>
