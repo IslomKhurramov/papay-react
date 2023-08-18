@@ -181,7 +181,8 @@ export function VisitMyPage(props: any) {
                               color="secondary"
                             />
                           )}
-                          onChange={handlePaginationChange}></Pagination>
+                          onChange={handlePaginationChange}
+                        />
                       </Box>
                     </Stack>
                   </Box>

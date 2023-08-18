@@ -46,7 +46,7 @@ export function MemberPosts(props: any) {
       {chosenMemberBoArticles?.map((article: BoArticle) => {
         const image_path = article?.art_image
           ? `${serverApi}/${article?.art_image}`
-          : "community/default_user.svg";
+          : "community/default_article.png";
         return (
           <Box
             className="all_article_box"
