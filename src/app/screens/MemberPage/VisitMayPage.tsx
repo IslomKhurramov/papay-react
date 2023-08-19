@@ -47,6 +47,7 @@ import {
 } from "../../../lib/sweetAlert";
 import CommunityApiService from "../../apiServices/communityApiService";
 import MemberApiService from "../../apiServices/memberApiService";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 //REDUX SLICE
 const actionDispatch = (dispach: Dispatch) => ({
@@ -96,7 +97,7 @@ export function VisitMyPage(props: any) {
     useState<SearchMemberArticleObj>({ mb_id: "none", page: 1, limit: 4 });
 
   useEffect(() => {
-    if (!localStorage.getItem("member_data")) {
+    if (!verifiedMemberData) {
       sweetFailureProvider("please login first", true, true);
     }
 
@@ -110,7 +111,7 @@ export function VisitMyPage(props: any) {
 
     //// setChosenMember
     memberService
-      .getChosenMember(props.verifiedMemberData?._id)
+      .getChosenMember(verifiedMemberData?._id)
       .then((data) => setChosenMember(data))
       .catch((err) => console.log(err));
   }, [memberArticleSearchObj, articleRebuild, followRebuild]);
@@ -192,7 +193,7 @@ export function VisitMyPage(props: any) {
                   <Box className="menu-content">
                     <MemberFollowers
                       actions_enabled={true}
-                      mb_id={props.verifiedMemberData?._id}
+                      mb_id={verifiedMemberData?._id}
                       setFollowRebuild={setFollowRebuild}
                       followRebuild={followRebuild}
                     />
@@ -204,7 +205,7 @@ export function VisitMyPage(props: any) {
                   <Box className="menu-content">
                     <MemberFollowing
                       actions_enabled={true}
-                      mb_id={props.verifiedMemberData?._id}
+                      mb_id={verifiedMemberData?._id}
                       setFollowRebuild={setFollowRebuild}
                       followRebuild={followRebuild}
                     />

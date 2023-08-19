@@ -18,6 +18,7 @@ import { PausedOrders } from "../../components/orders/pausedorders";
 import { ProcessOrders } from "../../components/orders/processorders";
 import { FinishedOrders } from "../../components/orders/finishedorders";
 import { Member } from "../../../types/user";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 //REDUX SLICE
 const actionDispatch = (dispach: Dispatch) => ({
@@ -30,7 +31,6 @@ export function OrdersPage(props: any) {
   /**INITIALIZATION */
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
-  const verifiedMemberData: Member | null = props.verifiedMemberData;
 
   useEffect(() => {
     const orderApiService = new OrderApiService();
@@ -96,13 +96,13 @@ export function OrdersPage(props: any) {
         <Stack className="order_right">
           <Stack className="user_box">
             <img
-              src={props.verifiedMemberData?.mb_image?.replace(/\\/g, "/")}
+              src={verifiedMemberData?.mb_image?.replace(/\\/g, "/")}
               className="user_img"
             />
 
-            <Box className="user_name">{props.verifiedMemberData?.mb_nick}</Box>
+            <Box className="user_name">{verifiedMemberData?.mb_nick}</Box>
             <Box className="who">
-              {props.verifiedMemberData?.mb_type ?? "Foydalanuvchi"}
+              {verifiedMemberData?.mb_type ?? "Foydalanuvchi"}
             </Box>
             <Marginer
               direction="vertical"

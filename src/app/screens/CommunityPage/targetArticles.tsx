@@ -17,6 +17,7 @@ import {
 import assert from "assert";
 import { Definer } from "../../../lib/Definer";
 import MemberApiService from "../../apiServices/memberApiService";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -26,7 +27,7 @@ export function TargetArticles(props: any) {
   /**HANDLERS */
   const targetLikeHandler = async (e: any) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberData, Definer.auth_err1);
 
       const memberService = new MemberApiService();
       const like_result = await memberService.memberLikeTarget({
@@ -45,7 +46,10 @@ export function TargetArticles(props: any) {
     <Stack>
       {props.targetBoArticles?.map((article: BoArticle) => {
         const artImage = article?.art_image
-          ? `${serverApi}/${article.art_image}`
+          ? `${serverApi}/${article.art_image.replace(/\\/g, "/")}`
+          : "/community/maria.jpg";
+        const userImage = article?.member_data.mb_image
+          ? `${serverApi}/${article.member_data.mb_image.replace(/\\/g, "/")}`
           : "/community/maria.jpg";
         return (
           <Link
@@ -59,7 +63,7 @@ export function TargetArticles(props: any) {
             <Box className="all_article_container">
               <Box alignItems={"center"} display={"flex"}>
                 <img
-                  src="/auth/default_user.svg"
+                  src={userImage}
                   width={"35px"}
                   style={{ borderRadius: "50%", backgroundSize: "cover" }}
                 />

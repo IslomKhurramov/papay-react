@@ -41,6 +41,7 @@ import {
   sweetErrorHandling,
   sweetTopSmallSuccessAlert,
 } from "../../../lib/sweetAlert";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 //REDUX SLICE
 const actionDispatch = (dispach: Dispatch) => ({
@@ -137,7 +138,7 @@ export function OneRestaurant(props: any) {
 
   const targetLikeProduct = async (e: any) => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberData, Definer.auth_err1);
       const memberService = new MemberApiService();
       const like_result: any = await memberService.memberLikeTarget({
         like_ref_id: e.target.id,
@@ -323,6 +324,9 @@ export function OneRestaurant(props: any) {
                         className={"like_view_btn"}
                         style={{ left: "36px" }}>
                         <Badge
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
                           badgeContent={product.product_likes}
                           color="primary">
                           <Checkbox

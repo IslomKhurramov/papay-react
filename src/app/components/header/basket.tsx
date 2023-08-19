@@ -12,6 +12,7 @@ import { Definer } from "../../../lib/Definer";
 import { useHistory } from "react-router-dom";
 import OrderApiService from "../../apiServices/orderApiService";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { verifiedMemberData } from "../../apiServices/verify";
 
 export default function Basket(props: any) {
   /** INITIALIZATIONS **/
@@ -38,7 +39,7 @@ export default function Basket(props: any) {
 
   const processOrderHandler = async () => {
     try {
-      assert.ok(localStorage.getItem("member_data"), Definer.auth_err1);
+      assert.ok(verifiedMemberData, Definer.auth_err1);
       const order = new OrderApiService();
       await order.createOrder(cartItems);
 

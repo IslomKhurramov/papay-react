@@ -800,7 +800,7 @@
 
 .chosen_dish_page .dish_swiper_2 .dish_img {
   display: block;
-  width: 100%;
+  width: 30%;
   height: 100%;
   object-fit: cover;
   border-radius: 20px;
