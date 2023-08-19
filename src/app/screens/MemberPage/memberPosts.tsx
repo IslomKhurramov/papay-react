@@ -55,7 +55,7 @@ export function MemberPosts(props: any) {
             <Box
               className="all_article_img"
               sx={{
-                backgroundImage: `url(${image_path})`,
+                backgroundImage: `url(${image_path.replace(/\\/g, "/")})`,
                 borderRadius: "50%",
                 backgroundSize: "cover",
               }}></Box>

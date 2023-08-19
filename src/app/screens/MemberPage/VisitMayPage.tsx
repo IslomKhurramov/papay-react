@@ -93,7 +93,7 @@ export function VisitMyPage(props: any) {
   const [articleRebuild, setArticlesRebuild] = useState<Date>(new Date());
   const [followRebuild, setFollowRebuild] = useState<boolean>(false);
   const [memberArticleSearchObj, setMemberArticleSearchObj] =
-    useState<SearchMemberArticleObj>({ mb_id: "none", page: 1, limit: 5 });
+    useState<SearchMemberArticleObj>({ mb_id: "none", page: 1, limit: 4 });
 
   useEffect(() => {
     if (!localStorage.getItem("member_data")) {
@@ -213,7 +213,10 @@ export function VisitMyPage(props: any) {
                 <TabPanel value={"4"}>
                   <Box className="menu_name">Maqola Yozish</Box>
                   <Box className="write-content">
-                    <TuiEditor />
+                    <TuiEditor
+                      setValue={setValue}
+                      setArticlesRebuild={setArticlesRebuild}
+                    />
                   </Box>
                 </TabPanel>
                 <TabPanel value={"5"}>
@@ -307,15 +310,18 @@ export function VisitMyPage(props: any) {
               <Box className="my_page_menu">
                 <TabList
                   orientation="vertical"
+                  variant="scrollable"
+                  value={value}
                   onChange={handleChange}
-                  aria-label="lab API tabs example">
+                  aria-label="Vertical tabs example"
+                  sx={{ borderRight: 1, borderColor: "divider", width: "95%" }}>
                   <Tab
                     style={{ display: "flex", flexDirection: "column" }}
                     value="1"
                     component={() => (
                       <div
                         style={{ cursor: "pointer" }}
-                        className={`menu_box ${value}`}
+                        className={`menu_box `}
                         onClick={() => setValue("1")}>
                         <img src="/icons/pencil.png" />
                         <span>Maqolalarim</span>
@@ -328,7 +334,7 @@ export function VisitMyPage(props: any) {
                     component={() => (
                       <div
                         style={{ cursor: "pointer" }}
-                        className={`menu_box ${value}`}
+                        className={`menu_box`}
                         onClick={() => setValue("2")}>
                         <img src={"/icons/User.png"} />
                         <span>Followers</span>
@@ -341,7 +347,7 @@ export function VisitMyPage(props: any) {
                     component={() => (
                       <div
                         style={{ cursor: "pointer" }}
-                        className={`menu_box ${value}`}
+                        className={`menu_box`}
                         onClick={() => setValue("3")}>
                         <img src={"/icons/group.png"} alt="Following" />
                         <span>Following</span>

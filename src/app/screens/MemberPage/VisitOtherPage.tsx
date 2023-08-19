@@ -100,7 +100,7 @@ export function VisitOtherPage(props: any) {
     useState<SearchMemberArticleObj>({
       mb_id: chosen_mb_id,
       page: 1,
-      limit: 5,
+      limit: 4,
     });
   const [articleRebuild, setArticlesRebuild] = useState<Date>(new Date());
   const [followRebuild, setFollowRebuild] = useState<boolean>(false);
@@ -360,15 +360,18 @@ export function VisitOtherPage(props: any) {
               <Box className="my_page_menu">
                 <TabList
                   orientation="vertical"
+                  variant="scrollable"
+                  value={value}
                   onChange={handleChange}
-                  aria-label="lab API tabs example">
+                  aria-label="Vertical tabs example"
+                  sx={{ borderRight: 1, borderColor: "divider", width: "95%" }}>
                   <Tab
                     style={{ display: "flex", flexDirection: "column" }}
                     value="1"
                     component={() => (
                       <div
                         style={{ cursor: "pointer" }}
-                        className={`menu_box ${value}`}
+                        className={`menu_box `}
                         onClick={() => setValue("1")}>
                         <img src="/icons/pencil.png" />
                         <span>Maqolalarim</span>
@@ -381,7 +384,7 @@ export function VisitOtherPage(props: any) {
                     component={() => (
                       <div
                         style={{ cursor: "pointer" }}
-                        className={`menu_box ${value}`}
+                        className={`menu_box `}
                         onClick={() => setValue("2")}>
                         <img src={"/icons/User.png"} />
                         <span>Followers</span>
@@ -394,7 +397,7 @@ export function VisitOtherPage(props: any) {
                     component={() => (
                       <div
                         style={{ cursor: "pointer" }}
-                        className={`menu_box ${value}`}
+                        className={`menu_box `}
                         onClick={() => setValue("3")}>
                         <img src={"/icons/group.png"} alt="Following" />
                         <span>Following</span>
