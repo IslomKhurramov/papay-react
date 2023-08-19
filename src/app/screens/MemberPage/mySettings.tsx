@@ -2,12 +2,86 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box, Stack } from "@mui/material";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import Button from "@mui/material/Button";
+import { verifiedMemberData } from "../../apiServices/verify";
+import { MemberUpdateData } from "../../../types/user";
+import assert from "assert";
+import { Definer } from "../../../lib/Definer";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../../lib/sweetAlert";
+import MemberApiService from "../../apiServices/memberApiService";
+
 export function MySettings() {
+  /**INITIALIZATION */
+  const [file, setFile] = useState(verifiedMemberData?.mb_image);
+
+  const [memberUpdate, setMemberUpdate] = useState<MemberUpdateData>({
+    mb_nick: "",
+    mb_phone: "",
+    mb_address: "",
+    mb_description: "",
+    mb_image: "",
+  });
+
+  /***HANDLERS */
+  const changeNickHandler = (e: any) => {
+    memberUpdate.mb_nick = e.target.value;
+    setMemberUpdate({ ...memberUpdate });
+  };
+  const changeMemberPhoneHandler = (e: any) => {
+    memberUpdate.mb_phone = e.target.value;
+    setMemberUpdate({ ...memberUpdate });
+  };
+  const changeMemberAddressHandler = (e: any) => {
+    memberUpdate.mb_address = e.target.value;
+    setMemberUpdate({ ...memberUpdate });
+  };
+  const changeMemberDescriptionHandler = (e: any) => {
+    memberUpdate.mb_description = e.target.value;
+    setMemberUpdate({ ...memberUpdate });
+  };
+
+  const handleImagePreviewer = (e: any) => {
+    try {
+      const file = e.target.files[0];
+
+      const fileType = file["type"],
+        validTypes = ["image/jpg", "image/png", "image/jpeg"];
+      assert.ok(validTypes.includes(fileType) && file, Definer.input_err2);
+
+      memberUpdate.mb_image = file;
+      setMemberUpdate({ ...memberUpdate });
+      setFile(URL.createObjectURL(file));
+    } catch (err) {
+      console.log("ERROR:: handleImagePreviewer", err);
+      sweetErrorHandling(err).then();
+    }
+  };
+
+  const handleSubmitBtn = async () => {
+    try {
+      const memberService = new MemberApiService();
+      const result = await memberService.updateMemberData(memberUpdate);
+
+      assert.ok(result, Definer.general_err1);
+      await sweetTopSmallSuccessAlert(
+        "Imformation updated successfully",
+        700,
+        false
+      );
+      window.location.reload();
+    } catch (err) {
+      console.log("ERROR:::handleSubmitBtn", err);
+      throw err;
+    }
+  };
+
   return (
     <Stack className="my_settings_page">
       <Box className="member_media_frame">
         <img
-          src={"/icons/ITC.png"}
+          src={file}
           className="nb_image"
           width={"100px"}
           style={{ borderRadius: "50%" }}
@@ -18,7 +92,10 @@ export function MySettings() {
           <span className="text_rasm">Rasm Yuklash</span>
           <p className="text_rasm_1">JPG, JPEG, PNG rasmlarni yuklay olasiz!</p>
           <div className="up_del_box">
-            <Button component="label" style={{ minWidth: "0" }}>
+            <Button
+              component="label"
+              style={{ minWidth: "0" }}
+              onChange={handleImagePreviewer}>
               <CloudDownloadIcon />
               <input type="file" hidden />
             </Button>
@@ -32,8 +109,9 @@ export function MySettings() {
           <input
             className="spec_input mb_nick"
             type="text"
-            placeholder="User name"
+            placeholder={verifiedMemberData?.mb_nick}
             name="mb_nick"
+            onChange={changeNickHandler}
           />
         </div>
       </Box>
@@ -44,8 +122,9 @@ export function MySettings() {
           <input
             className="spec_input mb_phone"
             type="text"
-            placeholder="99890 7524789"
+            placeholder={verifiedMemberData?.mb_phone ?? "raqam kiritilmagan"}
             name="mb_phone"
+            onChange={changeMemberPhoneHandler}
           />
         </div>
 
@@ -54,8 +133,11 @@ export function MySettings() {
           <input
             className="spec_input mb_address"
             type="text"
-            placeholder="Tashkent, Yunus Abad 4-1"
+            placeholder={
+              verifiedMemberData?.mb_address ?? "manzil kiritilmagan"
+            }
             name="mb_address"
+            onChange={changeMemberAddressHandler}
           />
         </div>
       </Box>
@@ -64,15 +146,20 @@ export function MySettings() {
         <div className="long_input">
           <label className="spec_label">Ma'lumot</label>
           <textarea
-            placeholder=" Salom, Men Papays  Developerlar uyushmasiman!"
+            placeholder={
+              verifiedMemberData?.mb_description ?? "mavzu kiritilmagan"
+            }
             name="mb_description"
             className="spec_textarea mb_description"
+            onChange={changeMemberDescriptionHandler}
           />
         </div>
       </Box>
 
       <Box display="flex" justifyContent="flex-end" sx={{ mt: "25px" }}>
-        <Button variant="contained">Saqlash</Button>
+        <Button variant="contained" onClick={handleSubmitBtn}>
+          Saqlash
+        </Button>
       </Box>
     </Stack>
   );

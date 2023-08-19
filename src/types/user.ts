@@ -41,3 +41,11 @@ export interface Member {
   me_liked: MeLiked[]; //Meliked
   me_followed: MeFollowed[]; //Mefollowed
 }
+
+export interface MemberUpdateData {
+  mb_nick?: string | null;
+  mb_phone: string;
+  mb_address?: string | null;
+  mb_description?: string | null;
+  mb_image?: string | null;
+}

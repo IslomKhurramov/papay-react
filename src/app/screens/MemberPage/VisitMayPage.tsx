@@ -243,7 +243,7 @@ export function VisitMyPage(props: any) {
                 <Box display="flex" flexDirection="column" alignItems="center">
                   <div className="order_user_img">
                     <img
-                      src="/community/cute_girl.png"
+                      src={verifiedMemberData?.mb_image}
                       style={{
                         width: "117px",
                         height: "112px",
