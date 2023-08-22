@@ -9,11 +9,9 @@ import "../src/css/index.css";
 import CssBaseLine from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./app/MaterialTheme";
+import ReactDOM from "react-dom";
 
-const container = document.getElementById("root")!;
-const root = createRoot(container);
-
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
@@ -22,7 +20,8 @@ root.render(
         </CssBaseLine>
       </ThemeProvider>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
