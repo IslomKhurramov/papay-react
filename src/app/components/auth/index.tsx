@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -38,18 +38,19 @@ export default function AuthenticationModal(props: any) {
   const classes = useStyles();
 
   /**INITIALIZATION */
-  let mb_nick: string = "";
-  let mb_password: string = "";
-  let mb_phone: number = 0;
+  const [mb_nick, set_mb_nick] = useState<string>("");
+  const [mb_phone, set_mb_phone] = useState<number>(0);
+  const [mb_password, set_password] = useState<string>("");
+
   /*HANDLERS*/
   const handleUserName = (e: any) => {
-    mb_nick = e.target.value;
+    set_mb_nick(e.target.value);
   };
   const handlePhone = (e: any) => {
-    mb_phone = e.target.value;
+    set_mb_phone(e.target.value);
   };
   const handlePassword = (e: any) => {
-    mb_password = e.target.value;
+    set_password(e.target.value);
   };
 
   const handleLoginRequest = async () => {
@@ -96,6 +97,14 @@ export default function AuthenticationModal(props: any) {
     }
   };
 
+  const passwordKeyDownHnadler = (e: any) => {
+    if (e.key == "Enter" && props.signUpOpen) {
+      handleSignUpRequest().then();
+    } else if (e.key == "Enter" && props.loginOpen) {
+      handleLoginRequest().then();
+    }
+  };
+
   return (
     <div>
       {/*@ts-ignore*/}
@@ -134,6 +143,7 @@ export default function AuthenticationModal(props: any) {
               />
               <TextField
                 onChange={handlePassword}
+                onKeyDown={passwordKeyDownHnadler}
                 id="outlined-basic"
                 label="password"
                 variant="outlined"
@@ -185,6 +195,7 @@ export default function AuthenticationModal(props: any) {
               />
               <TextField
                 onChange={handlePassword}
+                onKeyDown={passwordKeyDownHnadler}
                 id="outlined-basic"
                 label="password"
                 variant="outlined"

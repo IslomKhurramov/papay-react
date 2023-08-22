@@ -148,6 +148,7 @@ export function VisitOtherPage(props: any) {
 
   const renderChosenArticleHandler = async (art_id: string) => {
     try {
+      // history.push(`/member-page&art_id=${art_id}`);
       const communityService = new CommunityApiService();
       communityService
         .getChosenArticle(art_id)

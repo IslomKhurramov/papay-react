@@ -37,7 +37,7 @@ class CommunityApiService {
       const image_name: string = result.data.data;
       return image_name;
     } catch (err: any) {
-      console.log(`ERROR::: getTargetArticles ${err.message}`);
+      console.log(`ERROR::: uploadImageToServer ${err.message}`);
       throw err;
     }
   }
