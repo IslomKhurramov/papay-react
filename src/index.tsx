@@ -11,12 +11,16 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./app/MaterialTheme";
 import ReactDOM from "react-dom";
 
+import { SocketContext, socket } from "./app/context/socket";
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseLine>
-          <App />
+          <SocketContext.Provider value={socket}>
+            <App />
+          </SocketContext.Provider>
         </CssBaseLine>
       </ThemeProvider>
     </Provider>
